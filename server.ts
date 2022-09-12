@@ -58,6 +58,26 @@ app.post('/users', async (req, res) => {
   })
 
 //delete user
+app.delete('/users/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    const user = await prisma.users.delete({
+      where: { id }
+    })
+    res.send(user)
+  })
+
+//Update user
+
+app.patch('/users/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    const user = await prisma.users.update({
+      where: { id },
+      data: req.body,
+      include: { hobbies:true}
+    })
+    res.send(user)
+  })
+  
 
 //get all hobbies with the users
 app.get('/hobbies', async(req, res)=>{
@@ -109,6 +129,28 @@ app.post('/hobbies', async (req, res) => {
   }
   })
 
+//delete hobbies
+app.delete('/hobbies/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    const hobby = await prisma.hobbies.delete({
+      where: { id }
+    })
+    res.send(hobby)
+  })
+
+//Update hobbies
+
+app.patch('/hobbies/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    const hobby = await prisma.hobbies.update({
+      where: { id },
+      data: req.body,
+      include:{user:true}
+    })
+    res.send(hobby)
+  })
+  
+
 app.listen(port, () => {
-    console.log(port)
+    console.log(`http://localhost:${4000}`)
 })
