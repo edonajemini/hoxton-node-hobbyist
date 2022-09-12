@@ -63,7 +63,7 @@ app.delete('/users/:id', async (req, res) => {
     const user = await prisma.users.delete({
       where: { id }
     })
-    res.send(user)
+    res.send({message: "User deleted"})
   })
 
 //Update user
@@ -130,13 +130,13 @@ app.post('/hobbies', async (req, res) => {
   })
 
 //delete hobbies
-app.delete('/hobbies/:id', async (req, res) => {
-    const id = Number(req.params.id)
-    const hobby = await prisma.hobbies.delete({
-      where: { id }
-    })
-    res.send(hobby)
+app.delete('/hobbies/:id',async (req, res) => {
+  const id = Number(req.params.id)
+  const hobby = await prisma.hobbies.delete({
+      where: {id}
   })
+  res.send({message: "Hobby deleted"})
+})
 
 //Update hobbies
 
