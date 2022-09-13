@@ -11,15 +11,15 @@ datasource db {
 }
 model Users {
   id Int @id @default(autoincrement())
-  name String 
-  image String
-  email String @unique
+  name String @unique
+  image String?
+  email String?
   hobbies Hobbies[]
 }
 model Hobbies{
   id Int @id @default(autoincrement())
-  name String
-  image String
-  active Boolean
+  name String @unique
+  image String?
+  active Boolean?
   users Users[]
 }

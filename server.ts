@@ -34,7 +34,13 @@ app.get('/users/:id', async (req, res) => {
 
 //post users
 app.post('/users', async (req, res) => {
-   
+  const user = {
+    name:req.body.name,
+    image:req.body.image,
+    email:req.body.image,
+    hobbies: req.body.hobbies? req.body.hobbies: []
+  }
+
     let errors: string[] = []
 
     if (typeof req.body.name !== 'string') {
@@ -48,7 +54,20 @@ app.post('/users', async (req, res) => {
     }
     if( errors.length === 0)  {
     const newUser = await prisma.users.create({
-      data: req.body,
+      data: {
+        name:user.name,
+        image:user.image,
+        email:user.email,
+        hobbies:{
+          // @ts-ignore
+          connectOrCreate: user.hobbies.map(hobby =>({
+            where : {
+              name : hobby},
+            create :
+            {name : hobby}
+          }))
+        }
+      },
       include: { hobbies: true }
     })
     res.send(newUser)
@@ -103,7 +122,12 @@ app.get('/hobbies/:id', async (req, res) => {
 
 //post hobbies
 app.post('/hobbies', async (req, res) => {
-   
+   const hobby = {
+    name: req.body.name,
+    image:req.body.image,
+    active:req.body.active,
+    users: req.body.users? req.body.users:[]
+   }
     let errors: string[] = []
 
     if (typeof req.body.name !== 'string') {
@@ -115,12 +139,20 @@ app.post('/hobbies', async (req, res) => {
     if(typeof req.body.active  !=='boolean') {
         errors.push('Boolean not correct')
     }
-    if(typeof req.body.userId  !=='number') {
-        errors.push('Add a proper user ID')
-    }
     if( errors.length === 0)  {
     const newHobbie = await prisma.hobbies.create({
-      data: req.body,
+      data: {
+        name:hobby.name,
+        image:hobby.image,
+        active:hobby.active,
+        users: {
+          // @ts-ignore
+          connectOrCreate: hobby.users.map(user => ({
+            where: { name: user },
+            create: { name: user }
+          }))
+        }
+      },
       include:{users:true}
     })
     res.send(newHobbie)
