@@ -1,7 +1,6 @@
 {
   "name": "hoxton-node-hobbyist",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,15 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "prisma": "^4.3.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edonajemini/hoxton-node-hobbyist.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edonajemini/hoxton-node-hobbyist/issues"
+  },
+  "homepage": "https://github.com/edonajemini/hoxton-node-hobbyist#readme",
+  "description": ""
 }
