@@ -145,7 +145,8 @@ app.patch('/hobbies/:id', async (req, res) => {
     const id = Number(req.params.id)
     const hobby = await prisma.hobbies.update({
       where: { id },
-      data: req.body
+      data: req.body,
+      include: { users:true}
     })
     res.send(hobby)
   })
